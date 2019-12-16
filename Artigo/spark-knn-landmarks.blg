@@ -1,0 +1,61 @@
+This is BibTeX, Version 0.99d (TeX Live 2018)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: spark-knn-landmarks.aux
+The style file: sbc.bst
+Database file #1: spark-knn-landmarks-biblio.bib
+Warning--to sort, need author or key in sklearnpairwise:19
+Warning--to sort, need author or key in spark:19
+Warning--to sort, need author or key in movielens:19
+Warning--to sort, need author or key in azure:19
+Warning--to sort, need author or key in hdinsights:19
+Warning--to sort, need author or key in coichedid:19
+Warning--empty year in spark:19
+Warning--empty year in azure:19
+Warning--empty year in hdinsights:19
+Warning--empty year in coichedid:19
+Warning--empty year in movielens:19
+Warning--empty year in sklearnpairwise:19
+Warning--empty journal in lima:17
+Warning--empty booktitle in lima:18
+You've used 12 entries,
+            1935 wiz_defined-function locations,
+            526 strings with 5097 characters,
+and the built_in function-call counts, 3539 in all, are:
+= -- 363
+> -- 86
+< -- 4
++ -- 32
+- -- 28
+* -- 269
+:= -- 596
+add.period$ -- 35
+call.type$ -- 12
+change.case$ -- 74
+chr.to.int$ -- 12
+cite$ -- 32
+duplicate$ -- 150
+empty$ -- 275
+format.name$ -- 36
+if$ -- 702
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 6
+newline$ -- 62
+num.names$ -- 18
+pop$ -- 72
+preamble$ -- 1
+purify$ -- 74
+quote$ -- 0
+skip$ -- 105
+stack$ -- 0
+substring$ -- 239
+swap$ -- 9
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 72
+warning$ -- 14
+while$ -- 18
+width$ -- 0
+write$ -- 141
+(There were 14 warnings)

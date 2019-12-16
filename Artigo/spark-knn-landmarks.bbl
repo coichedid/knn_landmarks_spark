@@ -1,0 +1,63 @@
+\begin{thebibliography}{}
+
+\bibitem[spa ]{spark:19}
+Apache spark.
+\newblock \url{https://spark.apache.org/}.
+\newblock Accessed: 2019-12-13.
+
+\bibitem[azu ]{azure:19}
+Azure cloud services.
+\newblock \url{https://azure.com}.
+\newblock Accessed: 2019-12-13.
+
+\bibitem[hdi ]{hdinsights:19}
+Hdinsights azure service.
+\newblock \url{https://docs.microsoft.com/en-us/azure/hdinsight/}.
+\newblock Accessed: 2019-12-13.
+
+\bibitem[coi ]{coichedid:19}
+Knn landmarks spark implementation.
+\newblock \url{https://github.com/coichedid/knn_landmarks_spark}.
+\newblock Accessed: 2019-12-13.
+
+\bibitem[mov ]{movielens:19}
+Movielens 1m dataset.
+\newblock \url{https://grouplens.org/datasets/movielens/1m/}.
+\newblock Accessed: 2019-12-13.
+
+\bibitem[skl ]{sklearnpairwise:19}
+sklearn.metrics.{pairwise distances}.
+\newblock
+  \url{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html}.
+\newblock Accessed: 2019-12-13.
+
+\bibitem[Braida et~al. 2015]{braida:15}
+Braida, F., Mello, C.~E., Pasinato, M.~B., and Zimbrão, G. (2015).
+\newblock Transforming collaborative filtering into supervised learning.
+\newblock {\em Expert Systems with Applications}, 42(10):4733 -- 4742.
+
+\bibitem[{Cover} and {Hart} 1967]{cover_hart:67}
+{Cover}, T. and {Hart}, P. (1967).
+\newblock Nearest neighbor pattern classification.
+\newblock {\em IEEE Transactions on Information Theory}, 13(1):21--27.
+
+\bibitem[{Jingwen}~Sun 2018]{jingwen:18}
+{Jingwen}~Sun, {Weixing}~Du, N.~S. (2018).
+\newblock A survey of knn algorithm.
+\newblock {\em Information Engineering and Applied Computing}.
+
+\bibitem[Lima et~al. 2017]{lima:17}
+Lima, G., Mello, C., and Silva, G. (2017).
+\newblock Speeding up memory-based collaborative filtering with landmarks.
+
+\bibitem[Lima et~al. 2018]{lima:18}
+Lima, G., Mello, C., and Silva, G. (2018).
+\newblock A new modeling for item ratings using landmarks.
+\newblock pages 1--8.
+
+\bibitem[Stone 1977]{stone:77}
+Stone, C.~J. (1977).
+\newblock Consistent nonparametric regression.
+\newblock {\em Ann. Statist.}, 5(4):595--620.
+
+\end{thebibliography}
