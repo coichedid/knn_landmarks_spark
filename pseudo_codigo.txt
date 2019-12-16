@@ -1,0 +1,159 @@
+1. Join Movies e Rates
+mergedDF = votes100K.merge(moviesDF100K, on='MovieId')[['MovieId', 'UserId','MovieTitle', 'Rate']]
+2. Faz a média dos rates do mesmo filme/usuário
+m = mergedDF.groupby(['MovieTitle', 'MovieId', 'UserId']).mean().reset_index()
+m['Rate'] = pd.to_numeric(m['Rate']).round(0).astype(int)
+3. Define parâmetros da simulação
+>> Landmarks
+min_landmarks = 100
+max_landmarks = 500
+n_landmarks_step = 50
+n_landmarks_range = np.arange(min_landmarks, max_landmarks + 1, n_landmarks_step)
+
+>> PCA
+min_pca_1M = 85
+max_pca_1M = 95
+n_pca_step = 1
+n_pca_range_1M = np.arange(min_pca_1M, max_pca_1M + 1, n_pca_step)
+
+'nKnn': 100,
+'nLandmarks': 90
+
+min_knn = 70
+max_knn = 150
+n_knn_step = 10
+n_knn_range = np.arange(min_knn, max_knn, n_knn_step)
+
+v = 'Rate'
+x_y_order = [('UserId', 'MovieId'), ('MovieId', 'UserId')]
+v = 'Rate'
+x_y_order = [('UserId', 'MovieId'), ('MovieId', 'UserId')]
+metricas = ['Cosseno', 'Pearson']
+datasets = [
+    {
+        'label':'1M',
+        'dataset': movieVotes1M
+    },
+    {
+        'label':'100K',
+        'dataset': movieVotes100K
+    }
+]
+tecnicas_projecao = ['PCA', 'Landmark']
+num_sim = 5
+
+4. Algoritmo principal
+Para cada dataset
+  Para cada ordem x,y
+    Para cada técnica de projeção
+      Para cada métrica
+        n_knn é o número de vizinhos próximos
+        Para cada número de landmarks n_landmarks em n_landmarks_range
+          roda_simulacoes_sklearn(
+              dataset = dataset,
+              x,
+              popular_feature_group = [x]
+              y,
+              value = v,
+              n_sim = 5,
+              n_Folds = 5,
+              n_knn = n_knn,
+              n_landmarks = n_landmarks,
+              limite_similaridade = 0,
+              n_pca_comps = n_landmarks,
+              tecnica_projecao = tecnica,
+              distancia_landmark = dataset,
+              similaridade_matriz = dataset,
+              debug = True,
+              n_pool = n_estim_pool
+            )
+          acumula o resultado da simulação
+        Para cada número de vizinhos n_knn em n_knn_range
+          roda_simulacoes_sklearn(
+              dataset = dataset,
+              x,
+              popular_feature_group = [x]
+              y,
+              value = v,
+              n_sim = 5,
+              n_Folds = 5,
+              n_knn = n_knn,
+              n_landmarks = n_landmarks,
+              limite_similaridade = 0,
+              n_pca_comps = n_landmarks,
+              tecnica_projecao = tecnica,
+              distancia_landmark = dataset,
+              similaridade_matriz = dataset,
+              debug = True,
+              n_pool = n_estim_pool
+            )
+          acumula o resultado da simulação
+        Guarda o resultado das simulações
+          'Dataset', 'linhas', 'colunas', 'tecnica', 'metrica', 'n_knn', 'n_land_pca', 'mae', 'rmse'
+
+
+
+roda_simulacoes_sklearn:
+          cria uma tupla com todos os parâmetros
+          inicializa o pool de threads com os parametros como var globais
+          roda as simulações n_sim em paralelo
+            recupera as variaveis globais
+            sorteia o K_fold
+            cria uma tupla com todos os parametros
+            inicializa o pool de threads com os parametros como var globais
+            roda cada fold criado em paralelo
+              recupera as variaveis globais
+              separa dataset de treino e teste
+              seleciona os nLandmarks/feature/valor populares do treino (num landmarks, user/movie, rate)
+                agrupa por feature e conta o num linhas
+                seleciona os nLandmarks maiores
+              seleciona o indice dos landmarks
+              cria a matriz XY com os dados de treino e nomes das colunas x, y e v
+                calcula a média por x (user/movie)
+                pivota o dataset de treino criando matriz X por Y
+                completa os nulos com as médias calculadas
+                cria vetores linha/id para x e para y
+                retorna vetores e matrix XY
+              seleciona os valores dos landmarks com base nos indices dos landmarks
+              projeta os valores da matriz no espaço de landmarks ou pca
+                para landmarks
+                  busca a função de métrica pairwise
+                  aplica a métrica pairwise usando sklearn pair_wise
+                  normaliza se necessário
+                para PCA
+                  utiliza .fit_transform da decompsição pca do sklearn
+              completa vazios com 1
+              busca a função de métrica para o knn
+              instancia o NearestNeighbors do sklearn com a qtd de vizinhos e a métrica
+              busca os knn vizinhos próximos, retorna distancias e indices
+              calcula as médias das linhas e colunas
+              para cada linha x,y do dataset de teste
+                estima o valor de (x,y)
+                  busca o indice de x e y
+                  recupera o shape da matriz XY
+                  recupera a média da linha x
+                  recupera os vizinhos de x
+                  recupera as distancias dos vizinhos e x
+                  recupera as médias de cada vizinho
+                  recupera os valores dos vizinhos na matrix
+                  estima o valor de x e y com distancias, os valores, as médias dos vizinhos e a média do item
+                    soma distancias
+                    faz a multiplicação de matrizes D . (V - Mviz)
+                    a estimativa será a (multiplicacao/a soma das distancias) + a média do item
+                    a estimativa é "shaped" por 1 e 5
+              calcula as métricas de erro
+                exclui as estimativas vazias ou infinitas
+                recupera valores do dataset de teste
+                recupera estimativas
+                calcula mae e mse com sklearn e rmse sqrt(mse)
+              retorna mae e rmse
+            gera a lista de mae_s e rmse_s do n folds
+            gera a média de mae e rmse dos n folds
+            retorna tupla m_mae, m_rmse dos n folds
+          gera a lista de mae_s e rmse_s das n_sim simulacoes
+          gera a média de mae e rmse das n_sim simulacoes
+          retorna tupla m_mae, m_rmse das n_sim simulacoes
+
+
+
+                
